@@ -1,0 +1,70 @@
+<!DOCTYPE>
+<html>
+  <head>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>React Assignment</title>
+ 
+    <style>
+
+      .outside-div {
+        height: 100%;
+      }
+      .inner-div {
+        display: inline-grid;
+        grid-column: 1/1;
+        grid-row: 1/1;
+        width: 300px;
+        height: 300px;
+        position:absolute;
+       
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        /*box-shadow: for Material design */
+        
+        box-shadow: 0 3px 6px rgba(0,0,0,0.20), 0 3px 6px rgba(0,0,0,0.23)
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outside-div" id="outdiv">
+      <center>
+        <div class="inner-div" id="squareBox"></div>
+      </center>
+    </div>
+    <script type="text/javascript">
+      var randomColor = getRandomColor();
+      var outdiv = document.getElementById("outdiv");
+      var squareBox = document.getElementById("squareBox");
+      //change background color when page refresh or loaded
+      squareBox.style.backgroundColor = randomColor;
+      //change background color when outside div click
+      outdiv.addEventListener("click", changeBgColor);
+      //change background transparent color when square box click
+      squareBox.addEventListener("click", function(event) {
+        event.stopPropagation(); // remove parent function calling
+        changeBackgroundColorTransparent();
+      });
+      function changeBgColor() {
+        var color = getRandomColor();
+        squareBox.style.backgroundColor = color;
+      }
+      function changeBackgroundColorTransparent() {
+        var squareBoxBgColor = squareBox.style.backgroundColor; //get background color
+        var colorTxt = squareBoxBgColor.substr(0, squareBoxBgColor.length - 1); // remove last character
+        //change transparent color
+        var transparentColor = colorTxt + ", 0.8)";
+        squareBox.style.backgroundColor = transparentColor;
+      }
+      function getRandomColor() {
+        var x = Math.floor(Math.random() * 255) + 1;
+        var y = Math.floor(Math.random() * 255) + 1;
+        var z = Math.floor(Math.random() * 255) + 1;
+        var color = "rgb(" + x + "," + y + "," + z + ", 1)";
+        return color;
+      }
+    </script>
+  </body>
+</html>
